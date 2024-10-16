@@ -20,4 +20,9 @@ config.transformer.getTransformOptions = async () => ({
 // such as Firebase that use the extension cjs.
 config.resolver.sourceExts.push("cjs")
 
+// This makes it possible to import .glb files.
+// React Native Filament https://margelo.github.io/react-native-filament/docs/guides#configure-metro
+// config.resolver.sourceExts.push("glb") // https://youtu.be/msErROjFY08?si=JrcaH14xgnn9bbqb&t=307
+config.resolver.assetExts.push("glb")
+
 module.exports = config

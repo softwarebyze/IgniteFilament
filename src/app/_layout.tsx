@@ -1,12 +1,12 @@
+import { Slot, SplashScreen } from "expo-router"
 import { useEffect, useState } from "react"
 import { ViewStyle } from "react-native"
-import { Slot, SplashScreen } from "expo-router"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 
-import { useFonts } from "@expo-google-fonts/space-grotesk"
-import { customFontsToLoad } from "@/theme"
 import { initI18n } from "@/i18n"
+import { customFontsToLoad } from "@/theme"
 import { loadDateFnsLocale } from "@/utils/formatDate"
+import { useFonts } from "@expo-google-fonts/space-grotesk"
 
 SplashScreen.preventAutoHideAsync()
 

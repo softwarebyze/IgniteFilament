@@ -1,74 +1,34 @@
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Text } from "@/components"
-import { isRTL } from "@/i18n"
+import { Button, Screen, Text } from "@/components"
+import { Scene } from "@/components/scenes/Scene"
 import { colors, spacing } from "@/theme"
-import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
+import { ViewStyle } from "react-native"
+// models
+import { DamagedHelmetModel } from "@/components/models/DamagedHelmetModel"
+import { RocketModel } from "@/components/models/RocketModel"
+import { useState } from "react"
 
-const welcomeLogo = require("../../assets/images/logo.png")
-const welcomeFace = require("../../assets/images/welcome-face.png")
+const models = {
+  RocketModel,
+  DamagedHelmetModel,
+}
+
+type Model = keyof typeof models
 
 export default function WelcomeScreen() {
-  const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
-
+  const [model, setModel] = useState<Model>("DamagedHelmetModel")
   return (
-    <View style={$container}>
-      <View style={$topContainer}>
-        <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
-        <Text
-          testID="welcome-heading"
-          style={$welcomeHeading}
-          tx="welcomeScreen:readyForLaunch"
-          preset="heading"
-        />
-        <Text tx="welcomeScreen:exciting" preset="subheading" />
-        <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
-      </View>
-
-      <View style={[$bottomContainer, $bottomContainerInsets]}>
-        <Text tx="welcomeScreen:postscript" size="md" />
-      </View>
-    </View>
+    <Screen safeAreaEdges={["top"]} contentContainerStyle={$container}>
+      <Text text="IgniteFilament" preset="heading" />
+      <Scene>{models[model]()}</Scene>
+      {Object.keys(models).map((key) => (
+        <Button key={key} text={key} onPress={() => setModel(key as Model)} />
+      ))}
+    </Screen>
   )
 }
 
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
-}
-
-const $topContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 1,
-  flexBasis: "57%",
-  justifyContent: "center",
-  paddingHorizontal: spacing.lg,
-}
-
-const $bottomContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 0,
-  flexBasis: "43%",
-  backgroundColor: colors.palette.neutral100,
-  borderTopLeftRadius: 16,
-  borderTopRightRadius: 16,
-  paddingHorizontal: spacing.lg,
-  justifyContent: "space-around",
-}
-const $welcomeLogo: ImageStyle = {
-  height: 88,
-  width: "100%",
-  marginBottom: spacing.xxl,
-}
-
-const $welcomeFace: ImageStyle = {
-  height: 169,
-  width: 269,
-  position: "absolute",
-  bottom: -47,
-  right: -80,
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
-}
-
-const $welcomeHeading: TextStyle = {
-  marginBottom: spacing.md,
+  padding: spacing.lg,
 }
