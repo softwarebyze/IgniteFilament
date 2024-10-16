@@ -5,19 +5,17 @@ import { ViewStyle } from "react-native"
 // models
 import { DamagedHelmetModel } from "@/components/models/DamagedHelmetModel"
 import { RocketModel } from "@/components/models/RocketModel"
-import { SkeletonModel } from "@/components/models/Skeleton/SkeletonModel"
 import { useState } from "react"
 
 const models = {
   RocketModel,
-  SkeletonModel,
   DamagedHelmetModel,
 }
 
 type Model = keyof typeof models
 
 export default function WelcomeScreen() {
-  const [model, setModel] = useState<Model>("SkeletonModel")
+  const [model, setModel] = useState<Model>("DamagedHelmetModel")
   return (
     <Screen safeAreaEdges={["top"]} contentContainerStyle={$container}>
       <Text text="IgniteFilament" preset="heading" />
